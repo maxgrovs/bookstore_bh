@@ -147,6 +147,10 @@ public class Console {
                     dao.fillIsbn();
                     System.out.println("The column isbn was fill!");
                     break;
+                case -3:
+                    dao.fillDate();
+                    System.out.println("The column date was fill!");
+                    break;
 
             }
         }
@@ -154,10 +158,10 @@ public class Console {
 
     void printOne(Book book) {
 
-        System.out.printf("%-4s %-15s %-15s %-15s %n", "id", "title", "author", "isbn");
-        System.out.printf("%-4s %-15s %-15s %-15s %n", "__", "_______", "_______", "_______");
+        System.out.printf("%-4s %-20s %-15s %-15s %n", "id", "title", "author", "isbn");
+        System.out.printf("%-4s %-20s %-15s %-15s %n", "__", "_______", "_______", "_______");
 
-        System.out.printf("%-4d %-15s %-15s %-15s%n",
+        System.out.printf("%-4d %-20s %-15s %-15s%n",
                 book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
 
     }

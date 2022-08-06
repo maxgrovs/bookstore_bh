@@ -5,6 +5,8 @@ import by.grovs.utils.DataSource;
 import by.grovs.utils.Util;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class BookDaoImpl {
     public static final String FIND_ONE = "SELECT id, name, author, isbn FROM books WHERE id = ?";
     public static final String FIND_ONE_BY_ISBN = "SELECT id, name, author, isbn FROM books WHERE isbn = ?";
     public static final String FIND_ALL_BY_AUTHOR = "SELECT * FROM books WHERE author = ?";
-    public static final String FIND_ALL = "SELECT id, name, author, isbn FROM books";
+    public static final String FIND_ALL = "SELECT id, name, author, isbn, data date FROM books";
     private final DataSource dataSource;
 
     public BookDaoImpl(DataSource dataSource) {
@@ -35,9 +37,11 @@ public class BookDaoImpl {
                     "INSERT INTO books (name, author, isbn)" +
                             "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 
+            String isbn = new Util().getIsbn();
+
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, author);
-            preparedStatement.setString(3, new Util().getIsbn());
+            preparedStatement.setString(3, isbn);
 
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -76,6 +80,7 @@ public class BookDaoImpl {
                 book.setId(resultSet.getLong("id"));
                 book.setName(resultSet.getString("name"));
                 book.setAuthor(resultSet.getString("author"));
+                book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
 
                 books.add(book);
 
@@ -243,6 +248,31 @@ public class BookDaoImpl {
 
     }
 
+    //fill date
+    public void fillDate() {
+        try {
+            Connection connection = dataSource.getConnection();
+
+            Statement statement = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+
+            while (resultSet.next()) {
+                String date = resultSet.getString("date");
+
+                LocalDate randomDateOfPublication = new Util().getRandomDateOfPublication();
+
+                if (date == null) {
+                    resultSet.updateDate("date", Date.valueOf(randomDateOfPublication));
+                    resultSet.updateRow();
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 
     public int countAllBooks() {
         return getAllBooks().size();

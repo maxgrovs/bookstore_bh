@@ -1,7 +1,9 @@
 package by.grovs.utils;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Properties;
+import java.util.Random;
 
 
 public class Util {
@@ -45,6 +47,17 @@ public class Util {
         max -= min;
 
         return ((int) (Math.random() * ++max)) + min;
+    }
+
+
+    public LocalDate getRandomDateOfPublication(){
+
+        Random random = new Random();
+        int minDay = (int) LocalDate.of(1900, 1, 1).toEpochDay();
+        int maxDay = (int) LocalDate.of(2015, 1, 1).toEpochDay();
+        long randomDay = minDay + random.nextInt(maxDay - minDay);
+
+        return LocalDate.ofEpochDay(randomDay);
     }
 
 }

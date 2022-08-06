@@ -1,5 +1,6 @@
 package by.grovs.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book {
@@ -9,20 +10,28 @@ public class Book {
     private String author;
     private String isbn;
 
-    public Book() {
-    }
+    private LocalDate dateOfPublication;
 
-    public Book(long id, String name, String author, String isbn) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.isbn = isbn;
+    public Book() {
     }
 
     public Book(long id, String name, String author) {
         this.id = id;
         this.name = name;
         this.author = author;
+    }
+
+    public Book(String name, String author) {
+        this.name = name;
+        this.author = author;
+    }
+
+    public Book(long id, String name, String author, String isbn, LocalDate dateOfPublication) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.isbn = isbn;
+        this.dateOfPublication = dateOfPublication;
     }
 
     public long getId() {
@@ -57,14 +66,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", isbn=" + isbn +
-                '}';
+    public LocalDate getDateOfPublication() {
+        return dateOfPublication;
+    }
+
+    public void setDateOfPublication(LocalDate dateOfPublication) {
+        this.dateOfPublication = dateOfPublication;
     }
 
     @Override
@@ -75,11 +82,23 @@ public class Book {
         return id == book.id &&
                 Objects.equals(name, book.name) &&
                 Objects.equals(author, book.author) &&
-                Objects.equals(isbn, book.isbn);
+                Objects.equals(isbn, book.isbn) &&
+                Objects.equals(dateOfPublication, book.dateOfPublication);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, isbn);
+        return Objects.hash(id, name, author, isbn, dateOfPublication);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", dateOfPublication=" + dateOfPublication +
+                '}';
     }
 }
