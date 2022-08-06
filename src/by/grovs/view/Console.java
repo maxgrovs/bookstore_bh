@@ -4,6 +4,8 @@ import by.grovs.dao.BookDaoImpl;
 
 import by.grovs.model.Book;
 import by.grovs.utils.DataSource;
+import by.grovs.utils.Util;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,7 +45,7 @@ public class Console {
 
             switch (num) {
                 case 1:
-                    dao.getBooks();
+                    dao.getAllBooks();
                     break;
                 case 2:
                     System.out.println("\nInput id of book:");
@@ -96,17 +98,22 @@ public class Console {
                     boolean delete = dao.delete(id1);
                     if (delete) System.out.println("Delete is done!");
                     break;
+
                 case 0:
                     System.out.println(command);
                     break;
+
                 case -1:
                     System.out.println("Thanks for visiting!!!!!!");
                     return;
+
+                case -2:
+                    dao.fillIsbn();
+                    System.out.println("The column isbn was fill!");
+                    break;
+
+
             }
-
-
         }
-
     }
-
 }
