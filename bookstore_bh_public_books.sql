@@ -1,18 +1,26 @@
-INSERT INTO public.books (id, author, isbn, name) VALUES (1, 'Lev Tolstoy', null, 'war and peace');
-INSERT INTO public.books (id, author, isbn, name) VALUES (2, 'James Joyce', null, 'ULYSSES');
-INSERT INTO public.books (id, author, isbn, name) VALUES (4, 'George Orwell', null, '1984');
-INSERT INTO public.books (id, author, isbn, name) VALUES (5, 'Vladimir Nabokov', null, 'LOLITA');
-INSERT INTO public.books (id, author, isbn, name) VALUES (6, 'William Shakespeare ', null, 'Hamlet');
-INSERT INTO public.books (id, author, isbn, name) VALUES (8, 'dfsdfsda', null, 'sefwef');
-INSERT INTO public.books (id, author, isbn, name) VALUES (9, 'sdfasdfasdf', null, 'fsdfsadf');
-INSERT INTO public.books (id, author, isbn, name) VALUES (11, 'Turgenev', null, 'mu mu');
-INSERT INTO public.books (id, author, isbn, name) VALUES (12, 'Bram Stoker', null, 'Dracula');
-INSERT INTO public.books (id, author, isbn, name) VALUES (14, 'Leo Tolstoy', null, 'Anna Karenina');
-INSERT INTO public.books (id, author, isbn, name) VALUES (15, 'Leo Tolstoy-2', null, 'Anna Karenin-2');
-INSERT INTO public.books (id, author, isbn, name) VALUES (17, 'Leo Tolstoy-4', null, 'Anna Karenin-4');
-INSERT INTO public.books (id, author, isbn, name) VALUES (18, 'Leo Tolstoy-5', null, 'Anna Karenin-5');
-INSERT INTO public.books (id, author, isbn, name) VALUES (19, 'Leo Tolstoy-6', null, 'Anna Karenin-6');
-INSERT INTO public.books (id, author, isbn, name) VALUES (16, 'Leo Tolstoy-13', null, 'Anna Karenin-3');
-INSERT INTO public.books (id, author, isbn, name) VALUES (20, 'dddd', 'dddd', null);
-INSERT INTO public.books (id, author, isbn, name) VALUES (7, 'Michail Lermontov', null, 'maskarad');
-INSERT INTO public.books (id, author, isbn, name) VALUES (10, 'A. Pushkin', null, 'Stihi');
+CREATE TABLE IF NOT EXISTS books_1
+(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    name VARCHAR (64) NOT NULL UNIQUE ,
+    author VARCHAR (64),
+    isbn VARCHAR (17)
+)
+
+INSERT INTO books (author, isbn, name)
+VALUES ('Lev Tolstoy', null, 'war and peace'),
+       ('James Joyce', null, 'ULYSSES'),
+       ('George Orwell', null, '1984'),
+       ('Vladimir Nabokov', null, 'LOLITA'),
+       ('William Shakespeare ', null, 'Hamlet'),
+       ('dfsdfsda', null, 'sefwef'),
+       ('sdfasdfasdf', null, 'fsdfsadf'),
+       ('Turgenev', null, 'mu mu'),
+       ('Bram Stoker', null, 'Dracula'),
+       ('Leo Tolstoy', null, 'Anna Karenina'),
+       ('Leo Tolstoy-2', null, 'Anna Karenin-2'),
+       ('Leo Tolstoy-4', null, 'Anna Karenin-4'),
+       ('Leo Tolstoy-5', null, 'Anna Karenin-5'),
+       ('Leo Tolstoy-6', null, 'Anna Karenin-6'),
+       ('Leo Tolstoy-13', null, 'Anna Karenin-3'),
+       ('Michail Lermontov', null, 'maskarad'),
+       ('A. Pushkin', null, 'Stihi');
