@@ -21,6 +21,8 @@ public class BookDaoImpl {
     }
 
     //CRUD
+    //_________________________________________________
+
     //create
     public Book addBook(String name, String author) {
 
@@ -47,12 +49,6 @@ public class BookDaoImpl {
                 book.setAuthor(generatedKeys.getString("author"));
                 book.setIsbn(generatedKeys.getString("isbn"));
 
-                System.out.printf("%-4s %-20s %-15s %-15s %n", "id", "title", "author", "isbn");
-                System.out.printf("%-4s %-20s %-15s %-15s %n", "__", "_______", "_______", "_______");
-
-                System.out.printf("%-4d %-20s %-15s %-15s%n",
-                        book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
-
             }
 
         } catch (SQLException throwables) {
@@ -73,10 +69,6 @@ public class BookDaoImpl {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
 
-            System.out.printf("%-4s %-15s %-15s %n", "id", "title", "author");
-            System.out.printf("%-4s %-15s %-15s %n", "__", "_______", "_______");
-
-
             while (resultSet.next()) {
 
                 Book book = new Book();
@@ -87,8 +79,6 @@ public class BookDaoImpl {
 
                 books.add(book);
 
-                System.out.printf("%-4d %-15s %-15s%n",
-                        book.getId(), book.getName(), book.getAuthor());
             }
 
         } catch (SQLException throwables) {
@@ -108,9 +98,6 @@ public class BookDaoImpl {
             preparedStatement.setString(1, author);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            System.out.printf("%-4s %-15s %-15s %-15s %n", "id", "title", "author", "isbn");
-            System.out.printf("%-4s %-15s %-15s %-15s %n", "__", "_______", "_______", "_______");
-
             while (resultSet.next()) {
                 Book book = new Book();
 
@@ -121,8 +108,6 @@ public class BookDaoImpl {
 
                 books.add(book);
 
-                System.out.printf("%-4d %-15s %-15s %-15s%n",
-                        book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
             }
 
         } catch (SQLException throwables) {
@@ -149,11 +134,6 @@ public class BookDaoImpl {
                 book.setAuthor(resultSet.getString("author"));
                 book.setIsbn(resultSet.getString("isbn"));
 
-                System.out.printf("%-4s %-15s %-15s %-15s %n", "id", "title", "author", "isbn");
-                System.out.printf("%-4s %-15s %-15s %-15s %n", "__", "_______", "_______", "_______");
-
-                System.out.printf("%-4d %-15s %-15s %-15s%n",
-                        book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
             }
 
         } catch (SQLException throwables) {
@@ -229,11 +209,6 @@ public class BookDaoImpl {
                 book.setAuthor(resultSet.getString("author"));
                 book.setIsbn(resultSet.getString("isbn"));
 
-                System.out.printf("%-4s %-15s %-15s %-15s %n", "id", "title", "author", "isbn");
-                System.out.printf("%-4s %-15s %-15s %-15s %n", "__", "_______", "_______", "_______");
-
-                System.out.printf("%-4d %-15s %-15s %-15s%n",
-                        book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
             }
 
         } catch (SQLException throwables) {
@@ -268,5 +243,9 @@ public class BookDaoImpl {
 
     }
 
+
+    public int countAllBooks() {
+        return getAllBooks().size();
+    }
 
 }

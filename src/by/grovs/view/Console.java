@@ -4,9 +4,6 @@ import by.grovs.dao.BookDaoImpl;
 
 import by.grovs.model.Book;
 import by.grovs.utils.DataSource;
-import by.grovs.utils.Util;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +21,8 @@ public class Console {
                 "4 - edit book by id \n" +
                 "5 - delete book by id \n" +
                 "6 - show book by isbn \n" +
-                "7 - show books by author" +
+                "7 - show books by author\n" +
+                "8 - count all books\n" +
                 "-1 - exit \n" +
                 "0 - show list of command \n";
 
@@ -49,11 +47,12 @@ public class Console {
 
             switch (num) {
                 case 1:
-                    dao.getAllBooks();
+                    print(dao.getAllBooks());
                     break;
                 case 2:
                     System.out.println("\nInput id of book:");
-                    dao.getById(in.nextLong());
+                    printOne(dao.getById(in.nextLong()));
+
                     break;
                 case 3:
                     String title = null;
@@ -71,7 +70,8 @@ public class Console {
                         e.printStackTrace();
                     }
 
-                    dao.addBook(title, author);
+                    printOne(dao.addBook(title, author));
+
                     break;
                 case 4:
                     System.out.println("\nInput id of book:");
@@ -93,7 +93,8 @@ public class Console {
                         e.printStackTrace();
                     }
 
-                    dao.update(new Book(id, name, creator));
+                    printOne(dao.update(new Book(id, name, creator)));
+
 
                     break;
                 case 5:
@@ -114,7 +115,8 @@ public class Console {
                         e.printStackTrace();
                     }
 
-                    dao.getByIsbn(isbn);
+                    printOne(dao.getByIsbn(isbn));
+
                     break;
                 case 7:
                     System.out.println("\nInput author of book:");
@@ -127,10 +129,12 @@ public class Console {
                         e.printStackTrace();
                     }
 
-                    dao.getBooksByAuthor(authorBook);
+                    print(dao.getBooksByAuthor(authorBook));
 
-
+                case 8:
+                    System.out.println(dao.countAllBooks());
                     break;
+
                 case 0:
                     System.out.println(command);
                     break;
@@ -144,8 +148,28 @@ public class Console {
                     System.out.println("The column isbn was fill!");
                     break;
 
-
             }
         }
+    }
+
+    void printOne(Book book) {
+
+        System.out.printf("%-4s %-15s %-15s %-15s %n", "id", "title", "author", "isbn");
+        System.out.printf("%-4s %-15s %-15s %-15s %n", "__", "_______", "_______", "_______");
+
+        System.out.printf("%-4d %-15s %-15s %-15s%n",
+                book.getId(), book.getName(), book.getAuthor(), book.getIsbn());
+
+    }
+
+    void print(List<Book> books) {
+
+        System.out.printf("%-4s %-15s %-15s %n", "id", "title", "author");
+        System.out.printf("%-4s %-15s %-15s %n", "__", "_______", "_______");
+
+        for (Book book : books) {
+            System.out.printf("%-4d %-15s %-15s%n", book.getId(), book.getName(), book.getAuthor());
+        }
+
     }
 }
