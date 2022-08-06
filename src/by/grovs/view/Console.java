@@ -5,11 +5,13 @@ import by.grovs.dao.BookDaoImpl;
 import by.grovs.model.Book;
 import by.grovs.utils.DataSource;
 import by.grovs.utils.Util;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 import java.util.Scanner;
 
 public class Console {
@@ -21,6 +23,8 @@ public class Console {
                 "3 - add new book \n" +
                 "4 - edit book by id \n" +
                 "5 - delete book by id \n" +
+                "6 - show book by isbn \n" +
+                "7 - show books by author" +
                 "-1 - exit \n" +
                 "0 - show list of command \n";
 
@@ -99,6 +103,34 @@ public class Console {
                     if (delete) System.out.println("Delete is done!");
                     break;
 
+                case 6:
+                    String isbn = null;
+                    System.out.println("\nInput isbn of book:");
+
+                    try {
+                        isbn = bufferedReader.readLine();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    dao.getByIsbn(isbn);
+                    break;
+                case 7:
+                    System.out.println("\nInput author of book:");
+
+                    String authorBook = null;
+                    try {
+                        authorBook = bufferedReader.readLine();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    dao.getBooksByAuthor(authorBook);
+
+
+                    break;
                 case 0:
                     System.out.println(command);
                     break;
