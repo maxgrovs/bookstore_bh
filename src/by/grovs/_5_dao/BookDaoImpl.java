@@ -293,6 +293,8 @@ public class BookDaoImpl implements BookDao {
             book.setAuthor(resultSet.getString("author"));
             book.setIsbn(resultSet.getString("isbn"));
             book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
+            book.setCost(resultSet.getBigDecimal("cost"));
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

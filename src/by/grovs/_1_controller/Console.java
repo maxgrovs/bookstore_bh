@@ -1,5 +1,6 @@
 package by.grovs._1_controller;
 
+import by.grovs._3_service.BookServiceImpl;
 import by.grovs._5_dao.BookDaoImpl;
 
 import by.grovs._4_entity.Book;
@@ -33,6 +34,7 @@ public class Console {
         try {
             while (true) {
                 BookDaoImpl dao = new BookDaoImpl(new DataSource());
+                BookServiceImpl service = new BookServiceImpl();
 
                 Scanner in = new Scanner(System.in);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -126,7 +128,9 @@ public class Console {
                         dao.fillCost();
                         System.out.println("The column cost was fill!");
                         break;
-
+                    case "1":
+                        System.out.println(service.calcTotalCostByAuthor("Leo Tolstoy"));
+                        break;
                 }
             }
 
