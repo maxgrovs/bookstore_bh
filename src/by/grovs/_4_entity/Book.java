@@ -1,4 +1,4 @@
-package by.grovs.model;
+package by.grovs._4_entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
