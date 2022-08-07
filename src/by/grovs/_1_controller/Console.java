@@ -8,7 +8,6 @@ import by.grovs._5_dao.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,7 +41,7 @@ public class Console {
                 switch (bufferedReader.readLine()) {
 
                     case "all":
-                        print(dao.getAllBooks());
+                        print(dao.getBooks());
                         break;
 
                     case "get":
@@ -96,11 +95,10 @@ public class Console {
                     case "get books by author":
                         System.out.println("\nInput author of book:");
 
-                        String authorBook = null;
-
-                        authorBook = bufferedReader.readLine();
+                        String authorBook = bufferedReader.readLine();
 
                         print(dao.getBooksByAuthor(authorBook));
+                        break;
 
                     case "count":
                         System.out.println(dao.countAllBooks());
@@ -122,6 +120,11 @@ public class Console {
                     case "fill date":
                         dao.fillDate();
                         System.out.println("The column date was fill!");
+                        break;
+
+                    case "fill cost":
+                        dao.fillCost();
+                        System.out.println("The column cost was fill!");
                         break;
 
                 }

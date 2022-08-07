@@ -3,17 +3,18 @@ package by.grovs._5_dao;
 import by.grovs._4_entity.Book;
 import by.grovs._3_service.Util;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoImpl {
+public class BookDaoImpl implements BookDao {
     public static final String ADD_BOOK = "INSERT INTO books (name, author, isbn, date )" +
             "VALUES (?, ?, ?, ?)";
-    public static final String FIND_ALL = "SELECT id, name, author, isbn, date FROM books";
+    public static final String FIND_ALL = "SELECT * FROM books";
     public static final String FIND_ONE = "SELECT id, name, author, isbn, date FROM books WHERE id = ?";
-    public static final String FIND_ONE_BY_ISBN = "SELECT id, name, author, isbn FROM books WHERE isbn = ?";
+    public static final String FIND_ONE_BY_ISBN = "SELECT * FROM books WHERE isbn = ?";
     public static final String FIND_ALL_BY_AUTHOR = "SELECT * FROM books WHERE author = ?";
 
     private final DataSource dataSource;
@@ -59,14 +60,11 @@ public class BookDaoImpl {
     }
 
     //read all
-    public List<Book> getAllBooks() {
+    public List<Book> getBooks() {
         List<Book> books = new ArrayList<>();
 
         try {
-            Connection connection = dataSource.getConnection();
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
 
@@ -105,7 +103,6 @@ public class BookDaoImpl {
         return books;
     }
 
-
     //Read one
     public Book getById(Long id) {
         Book book = new Book();
@@ -133,10 +130,7 @@ public class BookDaoImpl {
     public Book update(Book book) {
 
         try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 long id = resultSet.getLong(1);
@@ -163,10 +157,7 @@ public class BookDaoImpl {
     public boolean delete(Long id) {
         boolean result = false;
         try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 long currentId = resultSet.getLong(1);
@@ -205,15 +196,10 @@ public class BookDaoImpl {
         return book;
     }
 
-
     //fill isbn
     public void fillIsbn() {
         try {
-            Connection connection = dataSource.getConnection();
-
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 String isbn = resultSet.getString("isbn");
@@ -232,12 +218,9 @@ public class BookDaoImpl {
 
     //fill date
     public void fillDate() {
-        try {
-            Connection connection = dataSource.getConnection();
 
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+        try {
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 String date = resultSet.getString("date");
@@ -256,10 +239,51 @@ public class BookDaoImpl {
 
     }
 
-    public int countAllBooks() {
-        return getAllBooks().size();
+    //fill cost
+    public void fillCost() {
+
+        try {
+            ResultSet resultSet = getResultSet(FIND_ALL);
+
+            while (resultSet.next()) {
+
+                BigDecimal cost = resultSet.getBigDecimal("cost");
+
+                BigDecimal randomCost = new Util().getRandomCost(
+                        new BigDecimal("5.0"), new BigDecimal("1000.0"));
+
+                if (cost == null) {
+                    resultSet.updateBigDecimal("cost", randomCost);
+                    resultSet.updateRow();
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
+    public long countAllBooks() {
+        return getBooks().size();
+    }
+
+
+    private ResultSet getResultSet(String sql) {
+
+        ResultSet resultSet = null;
+        Connection connection = dataSource.getConnection();
+
+        try {
+            Statement statement = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            resultSet = statement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
 
     private Book getBook(ResultSet resultSet) {
         Book book = new Book();
