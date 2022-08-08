@@ -1,6 +1,7 @@
-package by.grovs.utils;
+package by.grovs._3_service;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Random;
@@ -58,6 +59,12 @@ public class Util {
         long randomDay = minDay + random.nextInt(maxDay - minDay);
 
         return LocalDate.ofEpochDay(randomDay);
+    }
+
+
+    public BigDecimal getRandomCost(BigDecimal min, BigDecimal max) {
+        BigDecimal randomBigDecimal = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
+        return randomBigDecimal.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 
 }

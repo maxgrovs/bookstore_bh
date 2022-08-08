@@ -1,6 +1,6 @@
-package by.grovs.dao;
+package by.grovs._5_dao;
 
-import by.grovs.model.Book;
+import by.grovs._4_entity.Book;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface BookDao {
 
     //CRUD
     //create
-    Book addBook(String name, String author);
+    Book addBook(Book book);
 
     //read
     List<Book> getBooks();

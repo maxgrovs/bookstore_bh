@@ -1,21 +1,22 @@
-package by.grovs.dao;
+package by.grovs._5_dao;
 
-import by.grovs.model.Book;
-import by.grovs.utils.DataSource;
-import by.grovs.utils.Util;
+import by.grovs._4_entity.Book;
+import by.grovs._3_service.Util;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoImpl {
-
-    public static final String FIND_ONE = "SELECT id, name, author, isbn FROM books WHERE id = ?";
-    public static final String FIND_ONE_BY_ISBN = "SELECT id, name, author, isbn FROM books WHERE isbn = ?";
+public class BookDaoImpl implements BookDao {
+    public static final String ADD_BOOK = "INSERT INTO books (name, author, isbn, date )" +
+            "VALUES (?, ?, ?, ?)";
+    public static final String FIND_ALL = "SELECT * FROM books";
+    public static final String FIND_ONE = "SELECT id, name, author, isbn, date FROM books WHERE id = ?";
+    public static final String FIND_ONE_BY_ISBN = "SELECT * FROM books WHERE isbn = ?";
     public static final String FIND_ALL_BY_AUTHOR = "SELECT * FROM books WHERE author = ?";
-    public static final String FIND_ALL = "SELECT id, name, author, isbn, data date FROM books";
+
     private final DataSource dataSource;
 
     public BookDaoImpl(DataSource dataSource) {
@@ -26,32 +27,28 @@ public class BookDaoImpl {
     //_________________________________________________
 
     //create
-    public Book addBook(String name, String author) {
-
-        Book book = new Book();
+    public Book addBook(Book book) {
 
         try {
             Connection connection = dataSource.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO books (name, author, isbn)" +
-                            "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    ADD_BOOK, PreparedStatement.RETURN_GENERATED_KEYS);
 
             String isbn = new Util().getIsbn();
+            LocalDate date = new Util().getRandomDateOfPublication();
 
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, author);
+            preparedStatement.setString(1, book.getName());
+            preparedStatement.setString(2, book.getAuthor());
             preparedStatement.setString(3, isbn);
+            preparedStatement.setDate(4, Date.valueOf(date));
 
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 
             if (generatedKeys.next()) {
 
-                book.setId(generatedKeys.getLong("id"));
-                book.setName(generatedKeys.getString("name"));
-                book.setAuthor(generatedKeys.getString("author"));
-                book.setIsbn(generatedKeys.getString("isbn"));
+                getBook(generatedKeys);
 
             }
 
@@ -60,29 +57,18 @@ public class BookDaoImpl {
         }
 
         return book;
-
     }
 
     //read all
-    public List<Book> getAllBooks() {
+    public List<Book> getBooks() {
         List<Book> books = new ArrayList<>();
 
         try {
-            Connection connection = dataSource.getConnection();
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
 
-                Book book = new Book();
-
-                book.setId(resultSet.getLong("id"));
-                book.setName(resultSet.getString("name"));
-                book.setAuthor(resultSet.getString("author"));
-                book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
-
-                books.add(book);
+                books.add(getBook(resultSet));
 
             }
 
@@ -104,12 +90,8 @@ public class BookDaoImpl {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Book book = new Book();
 
-                book.setId(resultSet.getLong("id"));
-                book.setName(resultSet.getString("name"));
-                book.setAuthor(resultSet.getString("author"));
-                book.setIsbn(resultSet.getString("isbn"));
+                Book book = getBook(resultSet);
 
                 books.add(book);
 
@@ -120,7 +102,6 @@ public class BookDaoImpl {
         }
         return books;
     }
-
 
     //Read one
     public Book getById(Long id) {
@@ -134,11 +115,7 @@ public class BookDaoImpl {
 
             if (resultSet.next()) {
 
-                book.setId(resultSet.getLong("id"));
-                book.setName(resultSet.getString("name"));
-                book.setAuthor(resultSet.getString("author"));
-                book.setIsbn(resultSet.getString("isbn"));
-
+                book = getBook(resultSet);
             }
 
         } catch (SQLException throwables) {
@@ -153,17 +130,19 @@ public class BookDaoImpl {
     public Book update(Book book) {
 
         try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 long id = resultSet.getLong(1);
                 if (id == book.getId()) {
                     resultSet.updateString("name", book.getName());
                     resultSet.updateString("author", book.getAuthor());
+
                     resultSet.updateRow();
+
+                    book.setIsbn(resultSet.getString("isbn"));
+                    book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
+
                 }
             }
 
@@ -178,10 +157,7 @@ public class BookDaoImpl {
     public boolean delete(Long id) {
         boolean result = false;
         try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 long currentId = resultSet.getLong(1);
@@ -209,10 +185,7 @@ public class BookDaoImpl {
 
             if (resultSet.next()) {
 
-                book.setId(resultSet.getLong("id"));
-                book.setName(resultSet.getString("name"));
-                book.setAuthor(resultSet.getString("author"));
-                book.setIsbn(resultSet.getString("isbn"));
+                book = getBook(resultSet);
 
             }
 
@@ -223,15 +196,10 @@ public class BookDaoImpl {
         return book;
     }
 
-
     //fill isbn
     public void fillIsbn() {
         try {
-            Connection connection = dataSource.getConnection();
-
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 String isbn = resultSet.getString("isbn");
@@ -250,12 +218,9 @@ public class BookDaoImpl {
 
     //fill date
     public void fillDate() {
-        try {
-            Connection connection = dataSource.getConnection();
 
-            Statement statement = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+        try {
+            ResultSet resultSet = getResultSet(FIND_ALL);
 
             while (resultSet.next()) {
                 String date = resultSet.getString("date");
@@ -274,8 +239,66 @@ public class BookDaoImpl {
 
     }
 
-    public int countAllBooks() {
-        return getAllBooks().size();
+    //fill cost
+    public void fillCost() {
+
+        try {
+            ResultSet resultSet = getResultSet(FIND_ALL);
+
+            while (resultSet.next()) {
+
+                BigDecimal cost = resultSet.getBigDecimal("cost");
+
+                BigDecimal randomCost = new Util().getRandomCost(
+                        new BigDecimal("5.0"), new BigDecimal("1000.0"));
+
+                if (cost == null) {
+                    resultSet.updateBigDecimal("cost", randomCost);
+                    resultSet.updateRow();
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public long countAllBooks() {
+        return getBooks().size();
+    }
+
+
+    private ResultSet getResultSet(String sql) {
+
+        ResultSet resultSet = null;
+        Connection connection = dataSource.getConnection();
+
+        try {
+            Statement statement = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            resultSet = statement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    private Book getBook(ResultSet resultSet) {
+        Book book = new Book();
+        try {
+            book.setId(resultSet.getLong("id"));
+            book.setName(resultSet.getString("name"));
+            book.setAuthor(resultSet.getString("author"));
+            book.setIsbn(resultSet.getString("isbn"));
+            book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
+            book.setCost(resultSet.getBigDecimal("cost"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return book;
     }
 
 }
