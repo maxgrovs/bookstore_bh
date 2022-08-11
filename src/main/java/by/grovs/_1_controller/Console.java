@@ -1,10 +1,10 @@
 package by.grovs._1_controller;
 
-import by.grovs._3_service.BookServiceImpl;
-import by.grovs._5_dao.BookDaoImpl;
+import by.grovs._3_service.impl.BookServiceImpl;
+import by.grovs._5_dao.impl.BookDaoImpl;
 
 import by.grovs._4_entity.Book;
-import by.grovs._5_dao.DataSource;
+import by.grovs._5_dao.connect.DataSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;

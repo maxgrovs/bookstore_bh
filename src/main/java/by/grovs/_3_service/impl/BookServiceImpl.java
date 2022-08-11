@@ -1,14 +1,17 @@
-package by.grovs._3_service;
+package by.grovs._3_service.impl;
 
+import by.grovs._3_service.BookService;
 import by.grovs._4_entity.Book;
 import by.grovs._5_dao.BookDao;
-import by.grovs._5_dao.BookDaoImpl;
-import by.grovs._5_dao.DataSource;
+import by.grovs._5_dao.impl.BookDaoImpl;
+import by.grovs._5_dao.connect.DataSource;
 import java.math.BigDecimal;
 import java.util.List;
 
 
 public class BookServiceImpl implements BookService {
+
+
 
     private final BookDao dao = new BookDaoImpl(new DataSource());
 

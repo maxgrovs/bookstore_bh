@@ -1,4 +1,4 @@
-package by.grovs._5_dao;
+package by.grovs._5_dao.connect;
 
 
 import by.grovs._3_service.Util;
