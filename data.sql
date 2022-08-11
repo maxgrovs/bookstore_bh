@@ -1,12 +1,3 @@
-CREATE TABLE IF NOT EXISTS books
-(
-    id     BIGSERIAL   NOT NULL PRIMARY KEY,
-    name   VARCHAR(64) NOT NULL UNIQUE,
-    author VARCHAR(64),
-    isbn   VARCHAR(17),
-    date   date
-);
-
 INSERT INTO books (name, author, isbn, date)
 VALUES ('war and peace', 'Lev Tolstoy', '798-5-53716-255-2', '2004-01-22'),
        ('ULYSSES', 'James Joyce', '798-5-59510-943-2', '1902-12-23'),
@@ -30,3 +21,4 @@ VALUES ('war and peace', 'Lev Tolstoy', '798-5-53716-255-2', '2004-01-22'),
        ('Emma', 'J. Osten', '798-5-17105-496-2', '1947-02-19'),
        ('Rassvet', 'I. Bezdomniy', '798-5-86226-504-2', '2008-05-14'),
        ('Exercisebookin a cage',    'N. Frankov', '798-5-57180-433-2', '1932-04-05');
+
