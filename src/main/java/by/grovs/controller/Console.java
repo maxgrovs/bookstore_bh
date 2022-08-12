@@ -1,4 +1,4 @@
-package by.grovs._1_controller;
+package by.grovs.controller;
 
 import by.grovs._3_service.impl.BookServiceImpl;
 import by.grovs._5_dao.impl.BookDaoImpl;
