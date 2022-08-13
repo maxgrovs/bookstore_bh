@@ -48,7 +48,7 @@ public class Console {
 
                     case "get":
                         System.out.println("\nInput id of book:");
-                        printOne(dao.getById(in.nextLong()));
+                        printOne(service.getById(in.nextLong()));
                         break;
 
                     case "add":

@@ -1,3 +1,5 @@
+<%--<%@ page import="by.grovs._4_entity.Book" %>--%>
+
 <%--
   Created by IntelliJ IDEA.
   User: maxgrovs
@@ -6,17 +8,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
 
+<%
+
+%>
+
 <div>
-
     Hello world!
-
-<%--    <span>${requestScope.film.name} </span>--%>
+<%--    <span>${requestScope.book.name} </span>--%>
 <%--    <span>${requestScope.film.id}</span>--%>
 
 </div>
