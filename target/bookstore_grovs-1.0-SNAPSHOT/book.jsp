@@ -14,8 +14,10 @@
 
 <div>
 
-    <span>${requestScope.film.name} </span>
-    <span>${requestScope.film.id}</span>
+    Hello world!
+
+<%--    <span>${requestScope.film.name} </span>--%>
+<%--    <span>${requestScope.film.id}</span>--%>
 
 </div>
 

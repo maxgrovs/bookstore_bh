@@ -16,14 +16,8 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //---------------------------------------------
-        resp.setContentType("text/plain");
-        PrintWriter respWriter = resp.getWriter();
-        respWriter.println("Hello world!!!!!");
-        //---------------------------------------------
+      req.getRequestDispatcher("WEB-INF/jsp/book.jsp").forward(req, resp);
 
-        resp.setContentType("text/html");
-       // resp.getWriter().println("<h1>" + counter + "</h1>");
     }
 
 }

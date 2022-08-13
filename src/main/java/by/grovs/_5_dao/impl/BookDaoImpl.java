@@ -15,7 +15,7 @@ public class BookDaoImpl implements BookDao {
     public static final String ADD_BOOK = "INSERT INTO books (name, author, isbn, date )" +
             "VALUES (?, ?, ?, ?)";
     public static final String FIND_ALL = "SELECT * FROM books";
-    public static final String FIND_ONE = "SELECT id, name, author, isbn, date FROM books WHERE id = ?";
+    public static final String FIND_ONE = "SELECT id, name, author, isbn, date, cost FROM books WHERE id = ?";
     public static final String FIND_ONE_BY_ISBN = "SELECT * FROM books WHERE isbn = ?";
     public static final String FIND_ALL_BY_AUTHOR = "SELECT * FROM books WHERE author = ?";
 
