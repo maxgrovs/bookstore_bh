@@ -4,7 +4,6 @@ import by.grovs._3_service.impl.BookServiceImpl;
 import by.grovs._5_dao.impl.BookDaoImpl;
 
 import by.grovs._4_entity.Book;
-import by.grovs._5_dao.connect.DataSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +14,8 @@ import java.util.Scanner;
 public class Console {
 
     public void start() {
+        BookDaoImpl dao = BookDaoImpl.getInstance();
+        BookServiceImpl service = BookServiceImpl.getInstance();
 
         String command = "all - show list of all books \n" +
                 "get {id} - show book by id \n" +
@@ -33,8 +34,6 @@ public class Console {
 
         try {
             while (true) {
-                BookDaoImpl dao = new BookDaoImpl(new DataSource());
-                BookServiceImpl service = new BookServiceImpl();
 
                 Scanner in = new Scanner(System.in);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));

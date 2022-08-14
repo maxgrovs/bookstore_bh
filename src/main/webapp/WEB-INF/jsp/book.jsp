@@ -16,14 +16,13 @@
 </head>
 <body>
 
-<%
-
-%>
 
 <div>
     Hello world!
-<%--    <span>${requestScope.book.name} </span>--%>
-<%--    <span>${requestScope.film.id}</span>--%>
+
+
+
+    <span>${book.id} </span>
 
 </div>
 

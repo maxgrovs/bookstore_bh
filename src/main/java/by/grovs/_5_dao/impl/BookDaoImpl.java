@@ -3,7 +3,7 @@ package by.grovs._5_dao.impl;
 import by.grovs._4_entity.Book;
 import by.grovs._3_service.Util;
 import by.grovs._5_dao.BookDao;
-import by.grovs._5_dao.connect.DataSource;
+import by.grovs.util.ConnectionManager;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,6 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoImpl implements BookDao {
+    Connection connection;
+
+    private BookDaoImpl() {
+        try {
+            connection = ConnectionManager.get();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private static final BookDaoImpl INSTANCE = new BookDaoImpl();
+
+    public static BookDaoImpl getInstance() {
+        return INSTANCE;
+    }
+
+
     public static final String ADD_BOOK = "INSERT INTO books (name, author, isbn, date )" +
             "VALUES (?, ?, ?, ?)";
     public static final String FIND_ALL = "SELECT * FROM books";
@@ -19,11 +36,8 @@ public class BookDaoImpl implements BookDao {
     public static final String FIND_ONE_BY_ISBN = "SELECT * FROM books WHERE isbn = ?";
     public static final String FIND_ALL_BY_AUTHOR = "SELECT * FROM books WHERE author = ?";
 
-    private final DataSource dataSource;
+    private final Util util = Util.getInstance();
 
-    public BookDaoImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     //CRUD
     //_________________________________________________
@@ -32,13 +46,12 @@ public class BookDaoImpl implements BookDao {
     public Book addBook(Book book) {
 
         try {
-            Connection connection = dataSource.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
                     ADD_BOOK, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            String isbn = new Util().getIsbn();
-            LocalDate date = new Util().getRandomDateOfPublication();
+            String isbn = util.getIsbn();
+            LocalDate date = util.getRandomDateOfPublication();
 
             preparedStatement.setString(1, book.getName());
             preparedStatement.setString(2, book.getAuthor());
@@ -85,7 +98,6 @@ public class BookDaoImpl implements BookDao {
         List<Book> books = new ArrayList<>();
 
         try {
-            Connection connection = dataSource.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_AUTHOR);
             preparedStatement.setString(1, author);
@@ -108,8 +120,8 @@ public class BookDaoImpl implements BookDao {
     //Read one
     public Book getById(Long id) {
         Book book = new Book();
+
         try {
-            Connection connection = dataSource.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ONE);
             preparedStatement.setLong(1, id);
@@ -179,7 +191,6 @@ public class BookDaoImpl implements BookDao {
     public Book getByIsbn(String isbn) {
         Book book = new Book();
         try {
-            Connection connection = dataSource.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ONE_BY_ISBN);
             preparedStatement.setString(1, isbn);
@@ -207,7 +218,7 @@ public class BookDaoImpl implements BookDao {
                 String isbn = resultSet.getString("isbn");
 
                 if (isbn == null) {
-                    resultSet.updateString("isbn", new Util().getIsbn());
+                    resultSet.updateString("isbn", util.getIsbn());
                     resultSet.updateRow();
                 }
             }
@@ -227,7 +238,7 @@ public class BookDaoImpl implements BookDao {
             while (resultSet.next()) {
                 String date = resultSet.getString("date");
 
-                LocalDate randomDateOfPublication = new Util().getRandomDateOfPublication();
+                LocalDate randomDateOfPublication = util.getRandomDateOfPublication();
 
                 if (date == null) {
                     resultSet.updateDate("date", Date.valueOf(randomDateOfPublication));
@@ -251,7 +262,7 @@ public class BookDaoImpl implements BookDao {
 
                 BigDecimal cost = resultSet.getBigDecimal("cost");
 
-                BigDecimal randomCost = new Util().getRandomCost(
+                BigDecimal randomCost = util.getRandomCost(
                         new BigDecimal("5.0"), new BigDecimal("1000.0"));
 
                 if (cost == null) {
@@ -274,7 +285,6 @@ public class BookDaoImpl implements BookDao {
     private ResultSet getResultSet(String sql) {
 
         ResultSet resultSet = null;
-        Connection connection = dataSource.getConnection();
 
         try {
             Statement statement = connection.createStatement(

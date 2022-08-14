@@ -9,6 +9,15 @@ import java.util.Random;
 
 public class Util {
 
+    private Util() {
+    }
+
+    private static final Util INSTANCE = new Util();
+
+    public static Util getInstance() {
+        return INSTANCE;
+    }
+
    public String getPropertiesValue(String key) {
        String propertyValue = "";
         Properties properties = new Properties();

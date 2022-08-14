@@ -4,16 +4,22 @@ import by.grovs._3_service.BookService;
 import by.grovs._4_entity.Book;
 import by.grovs._5_dao.BookDao;
 import by.grovs._5_dao.impl.BookDaoImpl;
-import by.grovs._5_dao.connect.DataSource;
 import java.math.BigDecimal;
 import java.util.List;
 
 
 public class BookServiceImpl implements BookService {
 
+    private BookServiceImpl() {
+    }
 
+    private static final BookServiceImpl INSTANCE = new BookServiceImpl();
 
-    private final BookDao dao = new BookDaoImpl(new DataSource());
+    public static BookServiceImpl getInstance() {
+        return INSTANCE;
+    }
+
+    private final BookDao dao =  BookDaoImpl.getInstance();
 
     public BigDecimal calcTotalCostByAuthor(String author) {
 
