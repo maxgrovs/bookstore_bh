@@ -1,7 +1,5 @@
 package by.grovs._4_entity;
 
-import by.grovs._2_dto.BookDto;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -14,7 +12,7 @@ public class Book {
     private String isbn;
     private BigDecimal cost;
 
-    private LocalDate dateOfPublication;
+    private LocalDate date;
 
     public Book() {
     }
@@ -38,6 +36,14 @@ public class Book {
         this.cost = cost;
     }
 
+    public Book(long id, String name, String author, String isbn, BigDecimal cost, LocalDate date) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.isbn = isbn;
+        this.cost = cost;
+        this.date = date;
+    }
 
     public long getId() {
         return id;
@@ -79,12 +85,12 @@ public class Book {
         this.cost = cost;
     }
 
-    public LocalDate getDateOfPublication() {
-        return dateOfPublication;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateOfPublication(LocalDate dateOfPublication) {
-        this.dateOfPublication = dateOfPublication;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 
@@ -99,6 +105,7 @@ public class Book {
         private String author;
         private String isbn;
         private BigDecimal cost;
+        private LocalDate date;
 
         public Book.Builder id(Long id) {
             this.id = id;
@@ -124,6 +131,10 @@ public class Book {
             this.cost = cost;
             return this;
         }
+        public Book.Builder date(LocalDate date) {
+            this.date = date;
+            return this;
+        }
 
 
         public Book build() {
@@ -134,7 +145,8 @@ public class Book {
                             this.name,
                             this.author,
                             this.isbn,
-                            this.cost
+                            this.cost,
+                            this.date
                     );
         }
 

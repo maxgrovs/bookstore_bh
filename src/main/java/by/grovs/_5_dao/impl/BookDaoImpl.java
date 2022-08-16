@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoImpl implements BookDao {
+
     Connection connection;
 
     private BookDaoImpl() {
@@ -155,7 +156,7 @@ public class BookDaoImpl implements BookDao {
                     resultSet.updateRow();
 
                     book.setIsbn(resultSet.getString("isbn"));
-                    book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
+                    book.setDate((resultSet.getDate("date")).toLocalDate());
 
                 }
             }
@@ -304,7 +305,7 @@ public class BookDaoImpl implements BookDao {
             book.setName(resultSet.getString("name"));
             book.setAuthor(resultSet.getString("author"));
             book.setIsbn(resultSet.getString("isbn"));
-            book.setDateOfPublication((resultSet.getDate("date")).toLocalDate());
+            book.setDate((resultSet.getDate("date")).toLocalDate());
             book.setCost(resultSet.getBigDecimal("cost"));
 
         } catch (SQLException throwables) {
