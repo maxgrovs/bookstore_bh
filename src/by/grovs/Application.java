@@ -1,5 +1,5 @@
 package by.grovs;
-import by.grovs.view.Console;
+import by.grovs._1_controller.Console;
 
 public class Application {
 

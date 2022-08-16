@@ -29,4 +29,4 @@ VALUES ('war and peace', 'Lev Tolstoy', '798-5-53716-255-2', '2004-01-22'),
        ('Anna Karenin-6', 'Leo Tolstoy', '798-5-49857-937-2', '1964-06-08'),
        ('Emma', 'J. Osten', '798-5-17105-496-2', '1947-02-19'),
        ('Rassvet', 'I. Bezdomniy', '798-5-86226-504-2', '2008-05-14'),
-       ('Exercisebookin a cage', 'N. Frankov', '798-5-57180-433-2', '1932-04-05');
+       ('Exercisebookin a cage',    'N. Frankov', '798-5-57180-433-2', '1932-04-05');
