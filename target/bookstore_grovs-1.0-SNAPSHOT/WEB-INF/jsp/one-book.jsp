@@ -1,3 +1,4 @@
+<jsp:useBean id="book" scope="request" type="by.grovs._4_entity.Book"/>
 <%@ page import="by.grovs._4_entity.Book" %>
 <%@ page import="java.util.List" %>
 
@@ -11,10 +12,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-
-<%
-
-%>
 
 
 <head>
@@ -45,17 +42,19 @@
 
     %>
     <tr>
-        <th>ID</th>
+        <th>Isbn</th>
         <th>Title</th>
         <th>Author</th>
         <th>Date of publication</th>
+        <th>Cost</th>
     </tr>
 
     <tr>
-        <td>${book.id}</td>
+        <td>${book.isbn}</td>
         <td>${book.name}</td>
         <td>${book.author}</td>
         <td>${book.date}</td>
+        <td>${book.cost} $</td>
 
         <td>
 

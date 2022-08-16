@@ -45,9 +45,7 @@
 
 <h1>Book List</h1>
 <table>
-    <%
 
-    %>
     <tr>
 
         <th>Title</th>
