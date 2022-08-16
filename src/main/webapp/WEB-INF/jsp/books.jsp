@@ -39,7 +39,7 @@
 </head>
 <body>
 <c:forEach var="i" begin="1" end="8">
-<%--    ${i}--%>
+    <%--    ${i}--%>
 </c:forEach>
 
 
@@ -49,41 +49,28 @@
 
     %>
     <tr>
-        <th>ID</th>
+
         <th>Title</th>
         <th>Author</th>
-        <th>Date of publication</th>
+
     </tr>
 
 
     <c:forEach var="book" items="${books}" varStatus="status" step="1">
-    <tr>
-        <td>${book.id}</td>
-        <td>${book.name}</td>
-        <td>${book.author}</td>
-        <td>${book.date}</td>
+        <tr>
+
+            <td>
+                <a href="${pageContext.request.contextPath}book-store?command=book&id=${book.id}"> ${book.name}</a>
+            </td>
+            <td>${book.author}</td>
 
 
-        <td>
-<%--            <c:if test="${person.address == null}">--%>
-<%--                No Address--%>
-<%--            </c:if>--%>
+            <td>
 
-<%--            <c:if test="${person.address != null}">--%>
-<%--                ${person.address.street} ${person.address.city} ${person.address.state}--%>
-<%--            </c:if>--%>
-
-<%--            <c:choose>--%>
-<%--                <c:when test="${person.address == null}">--%>
-<%--                    No Address--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                    ${person.address.street} ${person.address.city} ${person.address.state}--%>
-<%--                </c:otherwise>--%>
-<%--            </c:choose>--%>
-        </td>
-    </tr>
+            </td>
+        </tr>
     </c:forEach>
+
 
 </table>
 </body>

@@ -58,22 +58,7 @@
         <td>${book.date}</td>
 
         <td>
-<%--            <c:if test="${person.address == null}">--%>
-<%--                No Address--%>
-<%--            </c:if>--%>
 
-<%--            <c:if test="${person.address != null}">--%>
-<%--                ${person.address.street} ${person.address.city} ${person.address.state}--%>
-<%--            </c:if>--%>
-
-<%--            <c:choose>--%>
-<%--                <c:when test="${person.address == null}">--%>
-<%--                    No Address--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                    ${person.address.street} ${person.address.city} ${person.address.state}--%>
-<%--                </c:otherwise>--%>
-<%--            </c:choose>--%>
         </td>
     </tr>
 
