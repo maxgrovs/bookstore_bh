@@ -11,11 +11,12 @@
 
 # Log file
 *.log
-*.docx
-*.png
-
 # BlueJ files
 *.ctxt
+
+*.docx
+*.png
+*.jpg
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

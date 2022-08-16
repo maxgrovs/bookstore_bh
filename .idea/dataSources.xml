@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://abul.db.elephantsql.com:5432/vftlpzke</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="bookstore_bh@localhost" uuid="ab3af150-0c94-427c-a972-853f211f4dbc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/bookstore_bh</jdbc-url>
+    </data-source>
   </component>
 </project>
