@@ -11,9 +11,12 @@
 
 # Log file
 *.log
-
 # BlueJ files
 *.ctxt
+
+*.docx
+*.png
+*.jpg
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -26,12 +29,6 @@
 *.zip
 *.tar.gz
 *.rar
-
-
-*.docx
-*.png
-*.jpg
-
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
