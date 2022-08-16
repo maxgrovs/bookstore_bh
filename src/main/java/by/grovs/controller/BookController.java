@@ -9,16 +9,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/book")
+@WebServlet("/book-store")
 public class BookController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       // new BookCommand().execute(request, response);
-        new BooksCommand().execute(request, response);
+        String commandParam = request.getParameter("command");
 
+        Command command = CommandFactory.INSTANCE.getCommand(commandParam);
+
+        command.execute(request, response);
 
     }
 

@@ -13,6 +13,12 @@ import java.util.List;
 
 public class BookDaoImpl implements BookDao {
 
+    private static final BookDaoImpl INSTANCE = new BookDaoImpl();
+
+    public static BookDaoImpl getInstance() {
+        return INSTANCE;
+    }
+
     Connection connection;
 
     private BookDaoImpl() {
@@ -21,12 +27,6 @@ public class BookDaoImpl implements BookDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    private static final BookDaoImpl INSTANCE = new BookDaoImpl();
-
-    public static BookDaoImpl getInstance() {
-        return INSTANCE;
     }
 
 

@@ -17,6 +17,6 @@ public class BookCommand implements Command {
         Book book = BookServiceImpl.getInstance().getById(id);
 
         request.setAttribute("book", book);
-        request.getRequestDispatcher("WEB-INF/jsp/book.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/jsp/one-book.jsp").forward(request, response);
     }
 }
