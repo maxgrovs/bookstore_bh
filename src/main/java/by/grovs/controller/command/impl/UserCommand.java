@@ -1,8 +1,6 @@
 package by.grovs.controller.command.impl;
 
-import by.grovs._3_service.impl.BookServiceImpl;
 import by.grovs._3_service.impl.UserServiceImpl;
-import by.grovs._4_entity.Book;
 import by.grovs._4_entity.User;
 import by.grovs.controller.command.Command;
 import jakarta.servlet.ServletException;

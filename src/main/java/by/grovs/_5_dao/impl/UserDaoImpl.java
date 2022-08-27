@@ -1,7 +1,6 @@
 package by.grovs._5_dao.impl;
 
 import by.grovs._3_service.Util;
-import by.grovs._4_entity.Book;
 import by.grovs._4_entity.User;
 import by.grovs._5_dao.UserDao;
 import by.grovs.util.ConnectionManager;
