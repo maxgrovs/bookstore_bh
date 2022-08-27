@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bookstore_grovs" target="1.8" />
+      <module name="bookstore_grovs" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
