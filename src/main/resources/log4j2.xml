@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+    <Appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%M] %-5level -=%logger{36}=-  %msg%n"/>-->
+
+            <PatternLayout pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M()
+            @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}"/>
+        </Console>
+
+        <File name="TxtFile" fileName="error.log" bufferedIO="true">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="error">
+                        <AppenderRef ref="TxtFile"/>
+                        <AppenderRef ref="Console"/>
+        </Root>
+
+        <Logger name="by.grovs._5_dao.BookDao" level="debug">
+            <AppenderRef ref="TxtFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+    </Loggers>
+
+</Configuration>
