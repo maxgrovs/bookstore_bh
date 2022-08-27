@@ -4,6 +4,8 @@ import by.grovs._4_entity.Book;
 import by.grovs._3_service.Util;
 import by.grovs._5_dao.BookDao;
 import by.grovs.util.ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoImpl implements BookDao {
+
+    private static final Logger log = LogManager.getLogger(BookDao.class);
 
     private static final BookDaoImpl INSTANCE = new BookDaoImpl();
 

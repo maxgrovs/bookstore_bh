@@ -1,23 +1,26 @@
 package by.grovs.controller.command.impl;
 
 import by.grovs._3_service.impl.BookServiceImpl;
+import by.grovs._3_service.impl.UserServiceImpl;
 import by.grovs._4_entity.Book;
+import by.grovs._4_entity.User;
 import by.grovs.controller.command.Command;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
-public class BookCommand implements Command {
+public class UserCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Long id = Long.valueOf(request.getParameter("id"));
 
-        Book book = BookServiceImpl.getInstance().getById(id);
+        User user = UserServiceImpl.getInstance().getById(id);
 
-        request.setAttribute("book", book);
-        request.getRequestDispatcher("WEB-INF/jsp/one-book.jsp").forward(request, response);
+        request.setAttribute("user", user);
+        request.getRequestDispatcher("WEB-INF/jsp/one-user.jsp").forward(request, response);
     }
 }

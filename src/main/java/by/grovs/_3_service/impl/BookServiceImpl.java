@@ -19,7 +19,9 @@ public class BookServiceImpl implements BookService {
         return INSTANCE;
     }
 
+
     private final BookDao dao =  BookDaoImpl.getInstance();
+
 
     public BigDecimal calcTotalCostByAuthor(String author) {
 

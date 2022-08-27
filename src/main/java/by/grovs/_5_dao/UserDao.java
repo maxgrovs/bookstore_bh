@@ -1,23 +1,13 @@
 package by.grovs._5_dao;
-
-import by.grovs._4_entity.Book;
+import by.grovs._4_entity.User;
 
 import java.util.List;
 
-public interface BookDao {
-
-    //CRUD
-    //create
-    Book addBook(Book book);
+public interface UserDao {
 
     //read
-    List<Book> getBooks();
+    List<User> getUsers();
 
-    Book getById(Long id);
+    User getById(Long id);
 
-    //update
-    Book update(Book book);
-
-    //delete
-    boolean delete(Long id);
 }

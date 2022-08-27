@@ -1,4 +1,4 @@
-package by.grovs.controller;
+package by.grovs.controller.command;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
