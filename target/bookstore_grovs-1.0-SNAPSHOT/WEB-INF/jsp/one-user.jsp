@@ -38,7 +38,7 @@
 
 <h1>User </h1>
 <table>
-  
+
     <tr>
         <th>ID</th>
         <th>First name</th>
