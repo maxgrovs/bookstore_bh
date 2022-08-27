@@ -29,7 +29,7 @@ public class BookDaoImpl implements BookDao {
         try {
             connection = ConnectionManager.get();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
     }
 
@@ -73,7 +73,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+           log.error(throwables);
         }
 
         return book;
@@ -93,7 +93,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
         return books;
     }
@@ -117,7 +117,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
         return books;
     }
@@ -138,7 +138,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
 
         return book;
@@ -166,7 +166,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
 
         return book;
@@ -187,7 +187,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
 
         return result;
@@ -208,7 +208,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
 
         return book;
@@ -229,7 +229,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
 
     }
@@ -252,7 +252,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
 
     }
@@ -277,7 +277,7 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
 
     }
@@ -297,7 +297,7 @@ public class BookDaoImpl implements BookDao {
 
             resultSet = statement.executeQuery(sql);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
         return resultSet;
     }
@@ -313,7 +313,7 @@ public class BookDaoImpl implements BookDao {
             book.setCost(resultSet.getBigDecimal("cost"));
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables);
         }
         return book;
     }

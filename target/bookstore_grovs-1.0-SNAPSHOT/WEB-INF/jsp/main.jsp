@@ -1,4 +1,3 @@
-<jsp:useBean id="user" scope="request" type="by.grovs._4_entity.User"/>
 <%@ page import="by.grovs._4_entity.User" %>
 <%@ page import="java.util.List" %>
 
@@ -13,9 +12,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
-
 <head>
-    <title>User List</title>
+    <title>Main</title>
     <style>
         table {
             font-family: arial, sans-serif;
@@ -36,29 +34,13 @@
 </head>
 <body>
 
-<h1>User </h1>
-<table>
-  
-    <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Password</th>
+<h1>Welcome to my awesome book store! </h1>
 
-    </tr>
-
-    <tr>
-        <td>${user.id}</td>
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
-        <td>${user.password}</td>
-
-        <td>
-
-        </td>
-    </tr>
+<tr>
+    <th><a href="book-store?command=books">Books</a></th>
+    <th><a href="book-store?command=users">Users</a></th>
+</tr>
 
 
-</table>
 </body>
 </html>

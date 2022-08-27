@@ -38,19 +38,14 @@
     </style>
 </head>
 <body>
-<c:forEach var="i" begin="1" end="8">
-    <%--    ${i}--%>
-</c:forEach>
-
 
 <h1>Book List</h1>
+
 <table>
 
     <tr>
-
         <th>Title</th>
         <th>Author</th>
-
     </tr>
 
 
@@ -71,5 +66,7 @@
 
 
 </table>
+
+<h2> <a href ="book-store">Beck to main page</a>   </h2>
 </body>
 </html>

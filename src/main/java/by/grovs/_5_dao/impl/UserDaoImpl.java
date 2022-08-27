@@ -1,6 +1,7 @@
 package by.grovs._5_dao.impl;
 
 import by.grovs._3_service.Util;
+import by.grovs._4_entity.Role;
 import by.grovs._4_entity.User;
 import by.grovs._5_dao.UserDao;
 import by.grovs.util.ConnectionManager;
@@ -32,7 +33,6 @@ public class UserDaoImpl implements UserDao {
     public static final String FIND_ONE = "SELECT id, first_name, last_name, password FROM users WHERE id = ?";
 
     private final Util util = Util.getInstance();
-
 
 
     //read all
@@ -100,6 +100,9 @@ public class UserDaoImpl implements UserDao {
             user.setFirstName(resultSet.getString("first_name"));
             user.setLastName(resultSet.getString("last_name"));
             user.setPassword(resultSet.getString("password"));
+//            Role[] values = Role.values();
+//            Role role = values[((int) resultSet.getLong("role_id")) + 1];
+//            user.setRole(role);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -23,7 +23,12 @@ public class BookController extends HttpServlet {
 
         Command command = CommandFactory.INSTANCE.getCommand(commandParam);
 
-        command.execute(request, response);
+        if (commandParam != null) {
+            command.execute(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
+        }
+
 
     }
 
