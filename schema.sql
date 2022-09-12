@@ -1,3 +1,5 @@
+CREATE DATABASE Bookstore_bh;
+
 --drop table books;
 --drop table users;
 --drop table role;

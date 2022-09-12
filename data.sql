@@ -27,7 +27,7 @@ VALUES ('Admin'),
        ('Manager'),
        ('Customer');
 
-INSERT INTO public.users (id, first_name, last_name, role_id, password)
+INSERT INTO public.users (first_name, last_name, role_id, password)
 VALUES ('Sveta', 'Ivanova', 1, '1'),
        ('Jhon', 'Dou', 2, '2'),
        ('Ivan', 'Bezdomniy', 3, '3');
